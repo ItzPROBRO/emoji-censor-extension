@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Emoji Censor",
+  "version": "1.0",
+  "description": "Hide or replace emojis on selected websites",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
