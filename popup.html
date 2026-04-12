@@ -4,33 +4,29 @@
 <head>
     <title>Emoji Censor</title>
     <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
 </head>
 
 <body>
     <h2>Emoji Censor</h2>
 
-    <h3>Hide Emojis</h3>
+    <!-- 🔹 ADD EMOJI -->
+    <h3>Add Emoji</h3>
     <input id="hideInput" placeholder="Enter emoji (😂)" />
     <button id="addHide">Add</button>
 
-    <h3>Replace Emoji</h3>
-    <input id="fromEmoji" placeholder="From 😂" />
-    <input id="toEmoji" placeholder="To 😹" />
-    <button id="addReplace">Add</button>
+    <!-- 🔹 RULES LIST -->
+    <h3>Emoji Rules</h3>
+    <ul id="hideListDisplay"></ul>
 
+    <!-- 🔹 SITES -->
     <h3>Allowed Websites</h3>
     <input id="siteInput" placeholder="example.com" />
     <button id="addSite">Add</button>
 
-    <h3>Hidden Emojis</h3>
-    <ul id="hideListDisplay"></ul>
-
-    <h3>Replace Rules</h3>
-    <ul id="replaceListDisplay"></ul>
-
-    <h3>Sites</h3>
     <ul id="siteListDisplay"></ul>
 
+    <!-- 🔹 DEV TOOL -->
     <button id="clearAll">Clear All</button>
 
     <script src="popup.js"></script>

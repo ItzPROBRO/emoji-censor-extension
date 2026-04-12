@@ -1,12 +1,10 @@
-let hideList = [];
-let replaceList = [];
+let emojiRules = [];
 let sites = [];
 
 // 🔹 MAIN FUNCTION
 function processPage() {
-    chrome.storage.sync.get(["hideList", "replaceList", "sites"], (data) => {
-        hideList = data.hideList || [];
-        replaceList = data.replaceList || [];
+    chrome.storage.sync.get(["emojiRules", "sites"], (data) => {
+        emojiRules = data.emojiRules || [];
         sites = data.sites || [];
 
         const currentSite = window.location.hostname;
@@ -21,9 +19,9 @@ function processPage() {
     });
 }
 
-// 🔹 WALK FUNCTION (moved OUTSIDE)
+// 🔹 WALK FUNCTION
 function walk(node) {
-    // ❌ Ignore typing areas (VERY IMPORTANT)
+    // ❌ Ignore typing areas
     if (
         node.closest &&
         (node.closest("input") ||
@@ -42,17 +40,13 @@ function walk(node) {
         return;
     }
 
-    // ✅ Text node
+    // ✅ TEXT NODES
     if (node.nodeType === 3) {
         if (!node.nodeValue || !node.nodeValue.trim()) return;
 
         let text = node.nodeValue;
 
-        hideList.forEach(e => {
-            text = text.replaceAll(e, "");
-        });
-
-        replaceList.forEach(rule => {
+        emojiRules.forEach(rule => {
             text = text.replaceAll(rule.from, rule.to);
         });
 
@@ -64,14 +58,14 @@ function walk(node) {
     }
 }
 
-// 🔹 SMART OBSERVER (optimized)
+// 🔹 OBSERVER
 function startObserver() {
-    processPage(); // initial run
+    processPage();
 
     const observer = new MutationObserver((mutations) => {
         mutations.forEach(mutation => {
             mutation.addedNodes.forEach(node => {
-                walk(node); // ✅ only process new nodes
+                walk(node);
             });
         });
     });

@@ -1,39 +1,35 @@
 const hideInput = document.getElementById("hideInput");
 const addHide = document.getElementById("addHide");
 
-const fromEmoji = document.getElementById("fromEmoji");
-const toEmoji = document.getElementById("toEmoji");
-const addReplace = document.getElementById("addReplace");
-
 const siteInput = document.getElementById("siteInput");
 const addSite = document.getElementById("addSite");
 
 const hideListDisplay = document.getElementById("hideListDisplay");
-const replaceListDisplay = document.getElementById("replaceListDisplay");
 const siteListDisplay = document.getElementById("siteListDisplay");
 
 // 🔹 LOAD + DISPLAY DATA
 function loadData() {
-    chrome.storage.sync.get(["hideList", "replaceList", "sites"], (data) => {
-        displayHideList(data.hideList || []);
-        displayReplaceList(data.replaceList || []);
+    chrome.storage.sync.get(["emojiRules", "sites"], (data) => {
+        displayRules(data.emojiRules || []);
         displaySites(data.sites || []);
     });
 }
 
-// 🔹 DISPLAY HIDE LIST
-function displayHideList(list) {
+// 🔹 DISPLAY RULES (merged system)
+function displayRules(list) {
     hideListDisplay.innerHTML = "";
 
-    list.forEach((emoji, index) => {
+    list.forEach((rule, index) => {
         const li = document.createElement("li");
-        li.textContent = emoji;
+
+        li.textContent = rule.from + " → " + rule.to;
 
         const btn = document.createElement("button");
         btn.innerHTML = "&times;";
+
         btn.onclick = () => {
             list.splice(index, 1);
-            chrome.storage.sync.set({ hideList: list }, loadData);
+            chrome.storage.sync.set({ emojiRules: list }, loadData);
         };
 
         li.appendChild(btn);
@@ -41,27 +37,7 @@ function displayHideList(list) {
     });
 }
 
-// 🔹 DISPLAY REPLACE LIST
-function displayReplaceList(list) {
-    replaceListDisplay.innerHTML = "";
-
-    list.forEach((rule, index) => {
-        const li = document.createElement("li");
-        li.textContent = `${rule.from} → ${rule.to}`;
-
-        const btn = document.createElement("button");
-        btn.innerHTML = "&times;";
-        btn.onclick = () => {
-            list.splice(index, 1);
-            chrome.storage.sync.set({ replaceList: list }, loadData);
-        };
-
-        li.appendChild(btn);
-        replaceListDisplay.appendChild(li);
-    });
-}
-
-// 🔹 DISPLAY SITES
+// 🔹 DISPLAY SITES (same as before)
 function displaySites(list) {
     siteListDisplay.innerHTML = "";
 
@@ -81,47 +57,33 @@ function displaySites(list) {
     });
 }
 
-// 🔹 ADD HIDE
+// 🔹 ADD RULE (replaces BOTH hide + replace)
 addHide.onclick = () => {
-    const emoji = hideInput.value;
+    const emoji = hideInput.value.trim();
 
-    chrome.storage.sync.get(["hideList"], (data) => {
-        const list = data.hideList || [];
-        if (list.includes(emoji)) {
-            alert("Emoji already added!");
+    if (!emoji) return;
+
+    chrome.storage.sync.get(["emojiRules"], (data) => {
+        const list = data.emojiRules || [];
+
+        const exists = list.some(rule => rule.from === emoji);
+
+        if (exists) {
+            alert("Emoji already exists!");
             return;
         }
 
-        list.push(emoji);
+        list.push({
+            from: emoji,
+            to: "⬛" // default = remove
+        });
 
-        chrome.storage.sync.set({ hideList: list }, loadData);
+        chrome.storage.sync.set({ emojiRules: list }, loadData);
         hideInput.value = "";
     });
 };
 
-// 🔹 ADD REPLACE
-addReplace.onclick = () => {
-    const from = fromEmoji.value;
-    const to = toEmoji.value;
-
-    chrome.storage.sync.get(["replaceList"], (data) => {
-        const list = data.replaceList || [];
-        const exists = list.some(rule => rule.from === from && rule.to === to);
-
-        if (exists) {
-            alert("This replace rule already exists!");
-            return;
-        }
-
-        list.push({ from, to });
-
-        chrome.storage.sync.set({ replaceList: list }, loadData);
-        fromEmoji.value = "";
-        toEmoji.value = "";
-    });
-};
-
-// 🔹 ADD SITE
+// 🔹 ADD SITE (same)
 addSite.onclick = () => {
     const site = siteInput.value;
 
@@ -134,12 +96,12 @@ addSite.onclick = () => {
     });
 };
 
-// 🚀 INITIAL LOAD
-loadData();
-
-
+// 🔹 CLEAR ALL (still useful for dev)
 document.getElementById("clearAll").onclick = () => {
     chrome.storage.sync.clear(() => {
         loadData();
     });
 };
+
+// 🚀 INITIAL LOAD
+loadData();
