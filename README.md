@@ -1,4 +1,4 @@
-````md
+
 # 😶 Emoji Censor Chrome Extension
 
 A Chrome extension that lets users hide or replace emojis on websites.
@@ -33,7 +33,7 @@ It uses:
 
 1. Clone the repo:
 ```bash
-git clone https://github.com/yourusername/emoji-censor-extension.git
+git clone https://github.com/ItzPROBRO/emoji-censor-extension.git
 ````
 
 2. Open Chrome and go to:
