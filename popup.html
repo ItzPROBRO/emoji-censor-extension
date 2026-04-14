@@ -8,28 +8,49 @@
 </head>
 
 <body>
-    <h2>Emoji Censor</h2>
+<div class="popup-wrap">
 
-    <!-- 🔹 ADD EMOJI -->
-    <h3>Add Emoji</h3>
-    <input id="hideInput" placeholder="Enter emoji (😂)" />
-    <button id="addHide">Add</button>
+    <!-- HEADER -->
+    <div class="popup-header">
+        <div class="icon-wrap">🚫</div>
+        <div>
+            <h1>Emoji Censor</h1>
+            <div class="subtitle" id="statsLabel">0 rules · 0 sites</div>
+        </div>
+    </div>
 
-    <!-- 🔹 RULES LIST -->
-    <h3>Emoji Rules</h3>
-    <ul id="hideListDisplay"></ul>
+    <!-- ADD RULE -->
+    <div class="section">
+        <div class="section-label">Add rule</div>
+        <div class="input-row">
+            <input id="hideInput" placeholder="Paste emoji  😂" />
+            <button id="addHide" class="btn-add">+ Add</button>
+        </div>
+    </div>
 
-    <!-- 🔹 SITES -->
-    <h3>Allowed Websites</h3>
-    <input id="siteInput" placeholder="example.com" />
-    <button id="addSite">Add</button>
+    <!-- RULES LIST -->
+    <div class="section">
+        <div class="section-label">Emoji rules</div>
+        <ul id="hideListDisplay"></ul>
+    </div>
 
-    <ul id="siteListDisplay"></ul>
+    <!-- SITES -->
+    <div class="section">
+        <div class="section-label">Allowed websites</div>
+        <div class="input-row">
+            <input id="siteInput" placeholder="example.com" />
+            <button id="addSite" class="btn-add">+ Add</button>
+        </div>
+        <ul id="siteListDisplay"></ul>
+    </div>
 
-    <!-- 🔹 DEV TOOL -->
-    <button id="clearAll">Clear All</button>
+    <!-- FOOTER -->
+    <div class="popup-footer">
+        <button id="clearAll">Clear all data</button>
+    </div>
 
-    <script src="popup.js"></script>
+</div>
+<script src="popup.js"></script>
 </body>
 
 </html>

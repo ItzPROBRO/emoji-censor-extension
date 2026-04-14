@@ -1,26 +1,258 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: Arial;
-  padding: 10px;
-  width: 250px;
-}
-
-input {
-  width: 100%;
-  margin: 5px 0;
-  padding: 5px;
-}
-
-button {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-ul {
-  padding-left: 10px;
-}
-
-li {
+  font-family: Arial, sans-serif;
+  background: #f4f4f8;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0;
+  width: 320px;
+  min-height: 400px;
+}
+
+/* ── POPUP SHELL ── */
+.popup-wrap {
+  width: 320px;
+  background: #fff;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* ── HEADER ── */
+.popup-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid #ebebef;
+}
+
+.popup-header .icon-wrap {
+  width: 32px;
+  height: 32px;
+  background: #EEEDFE;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.popup-header h1 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.popup-header .subtitle {
+  font-size: 11px;
+  color: #888;
+  margin-top: 1px;
+}
+
+/* ── SECTIONS ── */
+.section {
+  padding: 13px 16px;
+  border-bottom: 1px solid #ebebef;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #aaa;
+  margin-bottom: 9px;
+}
+
+/* ── INPUT ROW ── */
+.input-row {
+  display: flex;
+  gap: 7px;
+}
+
+.input-row input {
+  flex: 1;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e8;
+  background: #f7f7fb;
+  color: #1a1a2e;
+  padding: 0 10px;
+  font-size: 13px;
+  outline: none;
+  transition: border 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+}
+
+.input-row input:focus {
+  border-color: #7F77DD;
+  box-shadow: 0 0 0 3px #EEEDFE;
+  background: #fff;
+}
+
+.input-row input::placeholder {
+  color: #bbb;
+}
+
+.input-row .btn-add {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: none;
+  background: #534AB7;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.input-row .btn-add:hover {
+  background: #3C3489;
+}
+
+/* ── RULE CARDS ── */
+#hideListDisplay {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 0;
+}
+
+#hideListDisplay li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f7f7fb;
+  border-radius: 10px;
+  padding: 7px 10px;
+  border: 1px solid #ebebef;
+}
+
+#hideListDisplay li .rule-from,
+#hideListDisplay li .rule-to {
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 7px;
+  border: 1px solid #e0e0e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+#hideListDisplay li .rule-arrow {
+  font-size: 13px;
+  color: #bbb;
+}
+
+#hideListDisplay li .rule-hint {
+  flex: 1;
+  font-size: 11px;
+  color: #bbb;
+}
+
+#hideListDisplay li button {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #bbb;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, color 0.12s;
+  padding: 0;
+}
+
+#hideListDisplay li button:hover {
+  background: #FCEBEB;
+  color: #E24B4A;
+}
+
+/* ── SITE CHIPS ── */
+#siteListDisplay {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 0;
+}
+
+#siteListDisplay li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #f7f7fb;
+  border: 1px solid #e0e0e8;
+  border-radius: 20px;
+  padding: 3px 8px 3px 10px;
+  font-size: 12px;
+  color: #1a1a2e;
+}
+
+#siteListDisplay li button {
+  border: none;
+  background: none;
+  color: #bbb;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.12s;
+  width: auto;
+  margin: 0;
+}
+
+#siteListDisplay li button:hover {
+  color: #E24B4A;
+}
+
+/* ── FOOTER ── */
+.popup-footer {
+  padding: 10px 16px;
+  background: #f7f7fb;
+  border-top: 1px solid #ebebef;
+}
+
+#clearAll {
+  width: 100%;
+  height: 32px;
+  border: 1px solid #e0e0e8;
+  border-radius: 8px;
+  background: transparent;
+  color: #aaa;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+#clearAll:hover {
+  background: #FCEBEB;
+  color: #E24B4A;
+  border-color: #F09595;
 }
