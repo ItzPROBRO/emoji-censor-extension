@@ -23,7 +23,8 @@
     <div class="section">
         <div class="section-label">Add rule</div>
         <div class="input-row">
-            <input id="hideInput" placeholder="Paste emoji  😂" />
+            <input id="hideInput" placeholder="Paste or pick an emoji" autocomplete="off" />
+            <button id="emojiPickerBtn" class="btn-icon" title="Pick emoji">😊</button>
             <button id="addHide" class="btn-add">+ Add</button>
         </div>
     </div>
@@ -50,6 +51,16 @@
     </div>
 
 </div>
+
+<!-- EMOJI PICKER OVERLAY -->
+<div id="emojiPicker" class="emoji-picker hidden">
+    <div class="picker-search-row">
+        <input id="emojiSearch" placeholder="Search emoji..." autocomplete="off" />
+    </div>
+    <div class="picker-categories" id="pickerCategories"></div>
+    <div class="picker-grid" id="pickerGrid"></div>
+</div>
+
 <script src="popup.js"></script>
 </body>
 
